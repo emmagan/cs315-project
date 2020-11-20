@@ -8,10 +8,11 @@ import json
 
 class ProductsSpider(scrapy.Spider):
     name = "products"
-
-    start_urls = [
-            'https://www.moonboard.com/Problems/View/382440/progressive'
-        ]
+    allowed_domains = ['moonboard.com']
+    start_urls = ['https://www.moonboard.com/Problems/']
+    rules = (
+        Rule(LinkExtractor(allow=('View', )), callback='parse'),
+    )
 
 
     def parse(self, response):
