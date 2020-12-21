@@ -1,0 +1,146 @@
+<html>
+ <head>
+   <title>Final Project</title>
+   <link rel="stylesheet" href="styles.css">
+   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 180,
+      step: 10,
+      slide: function( event, ui ) {
+          const mapping = {
+              0: '5+',
+            10: '6A',
+            20: '6A+',
+            30: '6B',
+            40: '6B+',
+            50: '6C',
+            60: '6C+',
+            70: '7A',
+            80: '7A+',
+            90: '7B',
+            100: '7B+',
+            110: '7C',
+            120: '7C+',
+            130: '8A',
+            140: '8A+',
+            150: '8B',
+            160: '8B+',
+            170: '8C',
+            180: '8C+',
+          };
+          $( "#amount" ).val( mapping[ui.values[ 0 ]] + " to " +                        mapping[ui.values[ 1 ]]);
+          $("#gMin").val(mapping[ui.values[0]]);
+          $("#gMax").val(mapping[ui.values[1]]);
+      }
+    });
+    $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+                        " to " + $( "#slider-range" ).slider( "values", 1 ) );
+  } );
+  </script>
+ </head>
+ <body>
+   <div class="split left">
+   <form action="project.php" method="post">
+     <h4> PROBLEM</h4>
+     <label for="start">Start date:</label>
+     <input type="date" id="dMin" name="dMin" value='2018-01-01'> </li>
+     <label for="end">End date:</label>
+     <input type="date" id="dMax" name="dMax" value='2018-12-31'> </li>
+
+<br>Grade:
+<p>
+  <label for="amount">Filter Range:</label>
+  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  <input type="hidden" id="gMin" name="gMin" style="border:0; color:#f6931f; font-weight:bold;">
+  <input type="hidden" id="gMax" name="gMax" style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+ 
+<div id="slider-range"></div><br>
+Name: <input type="text" name="name"><br>
+
+<br> Benchmark Only:
+     <label class="switch">
+  <input type="checkbox" name="bench">
+  <span class="slider round"></span>
+     </label>
+<br>Repeats:
+<div slider id="slider-distance">
+  <div>
+    <div inverse-left style="width:70%;"></div>
+    <div inverse-right style="width:70%;"></div>
+    <div range style="left:0%;right:0%;"></div>
+    <span thumb style="left:0%;"></span>
+    <span thumb style="left:100%;"></span>
+    <div sign style="left:0%;">
+      <span id="value">0</span>
+    </div>
+    <div sign style="left:100%;">
+      <span id="value">4620</span>
+    </div>
+  </div>
+  <input type="range" name="rMin" value="0" max="4620" min="0" step="1" oninput="
+  this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+  let value = (this.value/parseInt(this.max))*100
+  var children = this.parentNode.childNodes[1].childNodes;
+  children[1].style.width=value+'%';
+  children[5].style.left=value+'%';
+  children[7].style.left=value+'%';children[11].style.left=value+'%';
+  children[11].childNodes[1].innerHTML=this.value;" />
+
+  <input type="range" name="rMax" value="4620" max="4620" min="0" step="1" oninput="
+  this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+  let value = (this.value/parseInt(this.max))*100
+  var children = this.parentNode.childNodes[1].childNodes;
+  children[3].style.width=(100-value)+'%';
+  children[5].style.right=(100-value)+'%';
+  children[9].style.left=value+'%';children[13].style.left=value+'%';
+  children[13].childNodes[1].innerHTML=this.value;" />
+</div>
+
+<h4>MOONBOARD CONFIGURATION</h4>
+
+<label for="angle">Angle:</label>
+
+<select name="angle" id="angle">
+  <option value="any">Any</option>
+  <option value="25">25</option>
+  <option value="40">40</option>
+</select>
+
+<label for="method">Method:</label>
+
+<select name="method" id="method">
+  <option value="any">Any</option>
+  <option value="feet">Feet follow hands</option>
+  <option value="feet screw">Feet follow hands + screw ons</option>
+  <option value="kick">Footless + kickboard</option>
+  <option value="screw">Screw ons only</option>
+</select>
+
+<h4>SETTER</h4>
+First Name: <input type="text" name="fname"><br>
+Last Name: <input type="text" name="lname"><br>
+City: <input type="text" name="city"><br>
+Country: <input type="text" name="country"><br>
+
+<input type="Submit">
+
+</form>
+</div>
+
+<div class="split right">
+   <h3>Databases 315 Final Project</h3>
+   <h4>Caroline Reynolds, Emma Gan</h4>
+<img src="mbsetup-mbm2017-min.jpg" alt="Moonboard"> </img> 
+  </div>
+ </body>
+</html>
